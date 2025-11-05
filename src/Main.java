@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 
 
 public class Main {
-    private static Tree tree;
+    private static FenwickTree tree;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -29,7 +29,7 @@ public class Main {
                             System.out.println("Введите " + (i + 1) + "-й элемент массива");
                             initialArr[i] = scanner.nextInt();
                         }
-                        tree = new Tree(n);
+                        tree = new FenwickTree(n);
                         tree.build(initialArr);
                     }
                     catch (InputMismatchException e) {

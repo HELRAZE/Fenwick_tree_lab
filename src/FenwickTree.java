@@ -1,8 +1,8 @@
-public class Tree {
+public class FenwickTree {
     final private int[] tree;
     final private int size;
 
-    public Tree(int arr_size) {
+    public FenwickTree(int arr_size) {
         this.size = arr_size;
         this.tree = new int[size + 1];
     }
