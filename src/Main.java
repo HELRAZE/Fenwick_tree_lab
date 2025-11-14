@@ -3,8 +3,9 @@ import java.util.InputMismatchException;
 
 
 public class Main {
-    private static FenwickTree tree;
-
+    private static FenwickTree<Long> tree;
+    private static final Operations<Long> SUM_OPERATION = new SumOperation();
+    private static int arraySize = 0;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
@@ -18,12 +19,11 @@ public class Main {
             System.out.println("6. Закрыть программу");
             try {
                 choice = scanner.nextInt();
-                if (choice < 1 || choice > 6){
+                if (choice < 1 || choice > 6) {
                     System.out.println("Введите число от 1 до 6");
                     continue;
                 }
-            }
-            catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Ошибка. Введено неверное число");
                 scanner.next();
                 choice = 0;
@@ -32,21 +32,26 @@ public class Main {
             switch (choice) {
                 case 1:
                     try {
+                        arraySize = scanner.nextInt();
+                        if (arraySize <= 0) {
+                            System.out.println("Размер массива должен быть положительным.");
+                            break;
+                        }
+
                         System.out.println("Введите длину массива");
                         int n = scanner.nextInt();
-                        int[] initialArr = new int[n];
-                        for (int i = 0; i < n; ++i) {
-                            System.out.println("Введите " + (i + 1) + "-й элемент массива");
-                            initialArr[i] = scanner.nextInt();
+                        tree = new FenwickTree<>(n, SUM_OPERATION);
+                        System.out.print("Введите " + arraySize + " целых чисел (Long) через пробел: ");
+                        Long[] initialArr = new Long[arraySize];
+                        for (int i = 0; i < arraySize; i++) {
+                            initialArr[i] = scanner.nextLong();
                         }
-                        tree = new FenwickTree(n);
+
                         tree.build(initialArr);
-                    }
-                    catch (InputMismatchException e) {
+                    } catch (InputMismatchException e) {
                         System.out.println("Ошибка. введено число за пределами диапазона");
                         scanner.nextLine();
-                    }
-                    catch (NegativeArraySizeException e) {
+                    } catch (NegativeArraySizeException e) {
                         System.out.println("Ошибка. введено отрицательное число");
                     }
                     break;
@@ -66,7 +71,7 @@ public class Main {
                             int index = scanner.nextInt();
                             if (index >= 0 && index < tree.getSize()) {
                                 System.out.println("Введите значение");
-                                int delta = scanner.nextInt();
+                                long delta = scanner.nextInt();
                                 tree.update(index, delta);
                             }
                             else {
