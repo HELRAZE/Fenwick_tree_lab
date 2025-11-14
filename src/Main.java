@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int choice;
+        int choice = 0;
 
         do {
             System.out.println("1. Создать дерево Фенвика");
@@ -16,8 +16,18 @@ public class Main {
             System.out.println("4. Вывести префиксную сумму");
             System.out.println("5. Вывести сумму на отрезке");
             System.out.println("6. Закрыть программу");
-
-            choice = scanner.nextInt();
+            try {
+                choice = scanner.nextInt();
+                if (choice < 1 || choice > 6){
+                    System.out.println("Введите число от 1 до 6");
+                    continue;
+                }
+            }
+            catch (InputMismatchException e){
+                System.out.println("Ошибка. Введено неверное число");
+                scanner.next();
+                choice = 0;
+            }
 
             switch (choice) {
                 case 1:
