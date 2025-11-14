@@ -32,15 +32,14 @@ public class Main {
             switch (choice) {
                 case 1:
                     try {
+                        System.out.println("Введите длину массива");
                         arraySize = scanner.nextInt();
                         if (arraySize <= 0) {
                             System.out.println("Размер массива должен быть положительным.");
                             break;
                         }
 
-                        System.out.println("Введите длину массива");
-                        int n = scanner.nextInt();
-                        tree = new FenwickTree<>(n, SUM_OPERATION);
+                        tree = new FenwickTree<>(arraySize, SUM_OPERATION);
                         System.out.print("Введите " + arraySize + " целых чисел (Long) через пробел: ");
                         Long[] initialArr = new Long[arraySize];
                         for (int i = 0; i < arraySize; i++) {
@@ -71,7 +70,7 @@ public class Main {
                             int index = scanner.nextInt();
                             if (index >= 0 && index < tree.getSize()) {
                                 System.out.println("Введите значение");
-                                long delta = scanner.nextInt();
+                                long delta = scanner.nextLong();
                                 tree.update(index, delta);
                             }
                             else {
